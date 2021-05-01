@@ -29,7 +29,7 @@ export class BooksService {
       });
   }
 
-  getSingleBook(id: number): Promise<void> {
+  getSingleBook(id: number): Promise<Book> {
     return new Promise(
       (resolve, reject) => {
         firebase.database().ref('/books' + id).once('value').then(
