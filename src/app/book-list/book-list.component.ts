@@ -35,7 +35,6 @@ export class BookListComponent implements OnInit, OnDestroy {
   }
 
   onViewBook(id: number): void{
-    console.log(id);
     this.router.navigate(['/books', 'view', id]);
   }
 

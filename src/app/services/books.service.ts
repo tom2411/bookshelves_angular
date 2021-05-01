@@ -4,9 +4,7 @@ import {Subject} from 'rxjs';
 import firebase from 'firebase';
 import DataSnapshot = firebase.database.DataSnapshot;
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class BooksService {
 
   books: Book[] = [];
