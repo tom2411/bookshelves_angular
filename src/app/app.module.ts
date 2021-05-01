@@ -21,7 +21,7 @@ const appRoutes: Routes = [
   { path: 'auth/signin', component: SigninComponent},
   { path: 'books', canActivate: [AuthGuardService], component: BookListComponent},
   { path: 'books/new', canActivate: [AuthGuardService], component: BookFormComponent},
-  { path: 'auth/view/:id', canActivate: [AuthGuardService], component: SingleBookComponent},
+  { path: 'books/view/:id', canActivate: [AuthGuardService], component: SingleBookComponent},
   { path: '', redirectTo: 'books', pathMatch: 'full'},
   { path: '**', redirectTo: 'books'}
 ];

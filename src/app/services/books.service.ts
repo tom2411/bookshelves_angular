@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Book} from '../models/Book.model';
 import {Subject} from 'rxjs';
 import firebase from 'firebase';
+import DataSnapshot = firebase.database.DataSnapshot;
 
 @Injectable({
   providedIn: 'root'
@@ -11,28 +12,31 @@ export class BooksService {
   books: Book[] = [];
   booksSubject = new Subject<Book[]>();
 
-  constructor() { }
+  constructor() {
+    this.getBooks();
+  }
 
   emitBooks(): void{
     this.booksSubject.next(this.books);
   }
 
-  saveBooks(): void {
+  saveBooks(): any {
     firebase.database().ref('/books').set(this.books);
   }
 
-  getBooks(): void{
+  getBooks(): void {
     firebase.database().ref('/books')
-      .on('value', (data) => {
-        this.books = data.val() ? data.val() : [];
-        this.emitBooks();
-      });
+      .on('value', (data: DataSnapshot) => {
+          this.books = data.val() ? data.val() : [];
+          this.emitBooks();
+        }
+      );
   }
 
   getSingleBook(id: number): Promise<Book> {
     return new Promise(
       (resolve, reject) => {
-        firebase.database().ref('/books' + id).once('value').then(
+        firebase.database().ref('/books/' + id).once('value').then(
           (data) => {
             resolve(data.val());
           }, (error) => {
